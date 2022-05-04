@@ -9,12 +9,31 @@ import {useDispatch,useSelector} from 'react-redux'
 import { login } from '../../actions/userActions';
 
 
+import {
+  Container,
+  Typography,
+  TextField,
+  Checkbox,
+  Grid,
+  Button,
+  Box,
+  Avatar,
+  FormControlLabel,
+  FormControl,
+  CircularProgress
+
+} from "@mui/material";
+
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme();
+ 
 const LoginScreen = ({history}) => {
 
     const[email,setEmail] = useState('');
     const[password,setPassword] = useState("");
-    // const[error,setError] = useState(false);  
-    // const[loading,setLoading]=useState(false);
 
    const  dispatch = useDispatch();
 
@@ -37,80 +56,103 @@ const LoginScreen = ({history}) => {
         //call our action 
         dispatch(login(email,password));
 
-
-
-        // try {
-        //     const config = {
-        //         Headers : {
-        //             "Content-type":"applications/json"
-        //         }
-        //     }
-
-        //         setLoading(true);
-
-        //         const {data} = await axios.post('/api/users/login',{
-        //             email,password
-        //         },config);
-        //         console.log(data);
-        //     localStorage.setItem("userInfo",JSON.stringify(data));
-
-        //         setLoading(false);
-
-        // } catch (error) {
-        //     setError(error.response.data.message);
-        //     setLoading(false);
-        // }
     }
 
     return (
-        <MainScreen title='Login'>
-       
-            <section className="login_page">
-        <div className="container">
-        {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
-            {loading && <Loading/>}
-          <form className="mt-5" onSubmit={submitHandler}>
+        // <MainScreen title='Login'>
+            <>
+                <section>
+                
+              <div style={{
+                marginTop:"5rem"
+              }}>
+                {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
 
-            <div className="row">
-
-              <div className="mb-3 col-lg-12 col-md-12 col-12 col-lg-6 col-md-6 col-12">
-                <label for="exampleFormControlInput1" className="form-label">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  value={email}
-                  onChange={(e)=> setEmail(e.target.value)}
-                  name="email"
-                  placeholder="Enter Email"
-                />
               </div>
+                  <div>
+                    <ThemeProvider theme={theme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <Box
+                component="form"
+                onSubmit={submitHandler}
+                noValidate
+                sx={{ mt: 1 }}
+              >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoFocus
+                />
 
-              <div className="mb-3 col-lg-12 col-md-12 col-12">
-                <label for="exampleFormControlInput1" className="form-label">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  name="password"
-                  id="exampleFormControlInput1"
-                  placeholder="***************"
+                  type="password"
+                  id="password"
                 />
-              </div>
 
-            <button type="submit"  className="btn btn-primary">Submit</button>
-            </div>
-          </form>
+                {loading ? (
+                  <CircularProgress justify="center" />
+                  
+                ) : (
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Sign In
+                  </Button>
+                )}
 
-          New Customer ? <Link to="/register">Register Here</Link>
-        </div>
-      </section>
-            
-        </MainScreen>
+                <Grid container>
+                  <Grid item xs>
+                    
+                    <Link variant="body2" to="/reset-password">
+                      Forgot password?
+                    </Link>
+
+                  </Grid>
+                  <Grid item>
+                    <Link href="body2" to="/register">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Container>
+        </ThemeProvider>
+                  </div>
+                </section>
+            </>
+        // </MainScreen>
     )
 }
 

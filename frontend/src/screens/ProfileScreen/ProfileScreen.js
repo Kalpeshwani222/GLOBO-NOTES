@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, Card, TextField } from "@mui/material";
 import MainScreen from "../../components/MainScreen";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useHistory } from "react-router-dom";
-import {updateProfile} from "../../actions/userActions"
-import Loading from "../../components/Loading"
+import { updateProfile } from "../../actions/userActions";
+import Loading from "../../components/Loading";
+import { margin } from "@mui/system";
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pic, setPic] = useState();
-  const [uploading,setUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const [password, setPasssword] = useState("");
   const [confirmPasssword, setConfirmPasssword] = useState("");
@@ -22,8 +23,7 @@ const ProfileScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-
-   const userUpdate = useSelector((state) => state.userUpdate);
+  const userUpdate = useSelector((state) => state.userUpdate);
   const { loading, error, success } = userUpdate;
 
   const history = useHistory();
@@ -56,11 +56,10 @@ const ProfileScreen = () => {
         method: "post",
         body: data,
       })
-    
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          
+
           setPic(data.url.toString());
           setUploading(false);
         })
@@ -73,90 +72,124 @@ const ProfileScreen = () => {
     }
   };
 
-
-  const submitHandler = (e) =>{
+  const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(updateProfile({name,email,password,pic}))
-  }
+    dispatch(updateProfile({ name, email, password, pic }));
+  };
+
   return (
     <>
-      <MainScreen title="Edit Profile">
+      <MainScreen title="Update Profile">
+        {/* messages */}
         <div>
-          <Row className="profileContainer  ">
-            {/* form */}
-            <Col md={6} lg={6}>
-              Profile
-           
-            <form onSubmit={submitHandler}>
-            {loading && <Loading />}
-            {success && (
-              <ErrorMessage variant="success">Updated successfully</ErrorMessage>
-            )}
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <br />
+          {loading && <Loading />}
+          {success && (
+            <ErrorMessage variant="success">Updated successfully</ErrorMessage>
+          )}
+        </div>
 
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <br />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPasssword(e.target.value)}
-              />
+        <div className="container">
+          <div className="row">
 
-              <br />
-              <input
-                type="password"
-                value={confirmPasssword}
-                onChange={(e) => setConfirmPasssword(e.target.value)}
-              />
-              <br />
-              {picMessage && (
-                <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
-              )}
+            <div className="col-12 col-md-10 col-lg-10" 
+            style={{
+              "display":"flex",
+              alignItems:"center",
+              justifyContent:"center"  
+            }}>
+              <Card>
+                {/* profile Image */}
 
-              <input
-                type="file"
-                onChange={(e) => postDetails(e.target.files[0])}
-                typeof="image/png"
-              />
-              <br />
+                <div>
+                  {uploading ? (
+                    <Loading />
+                  ) : (
+                    <>
+                      <img
+                        style={{
+                          width: "11rem",
+                          height: "10rem",
+                          borderRadius:"50%",
+                          display:"flex",
+                           margin:"auto",
+                          padding:"5px"
+                        }}
+                        src={pic}
+                        alt={name}
+                        className="profilePic"
+                      />
+                    </>
+                  )}
+                  <div className="" style={{
+                         display:"flex",
+                           margin:"auto",
+                          padding:"1rem",
+                         justifyContent:"center"
+                      }}>
+                    <input
+                      type="file"
+                      onChange={(e) => postDetails(e.target.files[0])}
+                      typeof="image/png"
+                      style={{
+                        display: "none",
+                      }}
+                      id="contained-button-file"
+                    />
+                    <label htmlFor="contained-button-file">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                      
+                      >
+                        Upload
+                      </Button>
+                    </label>
+                  </div>
+                </div>
 
-              <button type="submit">Update</button>
-            </form>
-             </Col>
+                <div className="" style={{
+                  padding:"15px"
+                }}>
+                  <form onSubmit={submitHandler}>
+                    {/* input */}
 
-            {/* profile pic */}
-            <Col
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                     
+                      id="name"
+                      name="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      autoFocus
+                    />
 
-            {
-              uploading ? <Loading / >:   
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoFocus
+                    />
 
-              <>
-                <img 
-              style={{
-                maxWidth:"30rem",
-                maxHeight:"30rem"
-              }}
-              src={pic} alt={name} className="profilePic" />
-              </>
-            }
-            </Col>
-          </Row>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      Update
+                    </Button>
+                  </form>
+                </div>
+              </Card>
+            </div>
+          </div>
         </div>
       </MainScreen>
     </>
