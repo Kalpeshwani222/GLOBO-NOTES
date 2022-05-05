@@ -16,6 +16,10 @@ const noteSchema = mongoose.Schema(
             type:String,
             required:true,
         },
+        public : {
+            type:Boolean,
+            default:false
+        },
         
         user:{
             type:mongoose.Schema.Types.ObjectId,

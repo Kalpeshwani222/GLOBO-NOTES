@@ -6,7 +6,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { useHistory } from "react-router-dom";
 import { updateProfile } from "../../actions/userActions";
 import Loading from "../../components/Loading";
-import { margin } from "@mui/system";
+
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");
@@ -139,8 +139,7 @@ const ProfileScreen = () => {
                     <label htmlFor="contained-button-file">
                       <Button
                         variant="contained"
-                        color="primary"
-                      
+                        color="primary"  
                       >
                         Upload
                       </Button>

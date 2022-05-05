@@ -26,6 +26,8 @@ const [title,setTitle] = useState("");
 const [content,setContent] = useState("");
 const [category,setCategory] = useState("");   
 
+const[checkpublic,setCheckPublic] = useState(false);
+
 const dispatch = useDispatch();
 
 const noteCreate = useSelector((state) => state.noteCreate);
@@ -37,13 +39,18 @@ const resetHandler = () =>{
     setContent("");
 };
 
+//for checkbox
+const handleChange = (e) =>{
+  setCheckPublic(e.target.checked);
+}
+
 
 const submitHandler = (e) =>{
     e.preventDefault();
     
     if(!title || !content || !category) return;
 
-    dispatch(createNoteAction(title,content,category));
+    dispatch(createNoteAction(title,content,category,checkpublic));
 
     
     resetHandler();
@@ -112,6 +119,21 @@ return (
                   type="text"
                 
                 />
+
+                <Box>
+                  <Box>
+                    <FormControlLabel label="It is public" 
+                    control={
+                    <Checkbox checked={checkpublic}
+                      onChange={handleChange}
+
+                    />
+                    
+                    }>
+
+                    </FormControlLabel>
+                  </Box>
+                </Box>
 
                  <footer>
                            Creating On - {new Date().toLocaleDateString()}

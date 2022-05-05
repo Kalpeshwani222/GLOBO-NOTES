@@ -1,23 +1,28 @@
-import React,{useEffect} from 'react'
-import "./LandingPage.css"
-import { Container,Row, Button } from 'react-bootstrap';
+import React, { useEffect } from "react";
+import "./LandingPage.css";
+import {
+  Card,
+  Box,
+  Container,
+  CardMedia,
+  CardContent,
+  Typography,
+  CardActions,
+} from "@mui/material";
+import MainScreen from "../../components/MainScreen";
 
-const LandingPage = ({history}) => {
+const LandingPage = ({ history }) => {
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
 
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history]);
 
-     useEffect(() => {
-      const userInfo = localStorage.getItem("userInfo");
-
-      if(userInfo){
-        history.push("/mynotes");
-      }
-      
-    }, [history]);
-
-
-    return (
-        <div className="main">
-            <Container>
+  return (
+    <div className="main">
+      {/* <Container>
                 <Row>
                    <div className="intro-text">
                         <div>
@@ -41,9 +46,54 @@ const LandingPage = ({history}) => {
                         </div>
                    </div>
                 </Row>
-            </Container>
-        </div>
-    )
-}
+            </Container> */}
+      <MainScreen title="Public Notes">
+        <div>
+          <Container>
+            <div className="mt-2">
+                <Card>
+              <CardContent>
+                <h2>HElo</h2>
 
-export default LandingPage
+                <hr />
+
+                <Typography
+                  padding={1}
+                  margin={1}
+                  style={{
+                    fontSize: "20px",
+                  }}
+                >
+                  ddes
+                </Typography>
+              </CardContent>
+            </Card>
+            </div>
+          
+          <div className="mt-2">
+                <Card>
+              <CardContent>
+                <h2>HElo</h2>
+
+                <hr />
+
+                <Typography
+                  padding={1}
+                  margin={1}
+                  style={{
+                    fontSize: "20px",
+                  }}
+                >
+                  ddes
+                </Typography>
+              </CardContent>
+            </Card>
+            </div>
+          </Container>
+        </div>
+      </MainScreen>
+    </div>
+  );
+};
+
+export default LandingPage;

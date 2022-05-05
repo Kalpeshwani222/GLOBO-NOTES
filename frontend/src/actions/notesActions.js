@@ -40,7 +40,7 @@ export const listNotes = () => async (dispatch,getState) =>{
 
 //create note action
 
-export const createNoteAction = (title,content,category) => async (dispatch,getState) =>{
+export const createNoteAction = (title,content,category,checkpublic) => async (dispatch,getState) =>{
     try {
         dispatch({
             type:NOTE_CREATE_REQUEST,
@@ -59,7 +59,7 @@ export const createNoteAction = (title,content,category) => async (dispatch,getS
 
         const {data} = await axios.post(
             `/api/notes/create`,
-            {title,content,category},
+            {title,content,category,checkpublic},
             config
         );
 
@@ -86,8 +86,9 @@ export const createNoteAction = (title,content,category) => async (dispatch,getS
 
 
 //update note action
- export const updateNoteAction = (id,title,content,category) => async(dispatch,getState) =>{
-     try {
+ export const updateNoteAction = (id,title,content,category,checkpublic) => async(dispatch,getState) =>{
+    console.log(checkpublic); 
+    try {
          dispatch({
              type:NOTE_UPDATE_REQUEST,
          });
@@ -103,13 +104,9 @@ export const createNoteAction = (title,content,category) => async (dispatch,getS
             },
         }
 
-        // const {data} = await axios.put(`/api/notes/${id}`,
-        // {title,content,category},
-        // config
-        // );
         const { data } = await axios.put(
       `/api/notes/${id}`,
-      { title, content, category },
+      { title, content, category,checkpublic },
       config
     );
 
