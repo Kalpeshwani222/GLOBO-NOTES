@@ -10,7 +10,7 @@ const MainScreen = ({title,children}) => {
                         {(
                             title && 
                             <>
-                                <h1 className="heading">{title}</h1>
+                                <h3 className="heading">{title}</h3>
                                 <hr />
                             </>
                         )}

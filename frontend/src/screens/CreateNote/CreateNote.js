@@ -1,11 +1,13 @@
-import React,{useState} from 'react'
+import React, { useState,useEffect } from "react";
 import MainScreen from "../../components/MainScreen";
-import ErrorMessage from "../../components/ErrorMessage"
+import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
-import {useDispatch,useSelector} from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { createNoteAction } from "../../actions/notesActions";
-import {history, useHistory} from "react-router-dom"
-import { CardContent, Container,
+import { history, useHistory } from "react-router-dom";
+import {
+  CardContent,
+  Container,
   Typography,
   TextField,
   Checkbox,
@@ -15,66 +17,72 @@ import { CardContent, Container,
   Avatar,
   FormControlLabel,
   FormControl,
-  CircularProgress} from '@mui/material';
+  CircularProgress,
+} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const CreateNote = () => {
+  const history = useHistory();
 
-const history = useHistory();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [category, setCategory] = useState("");
 
-const [title,setTitle] = useState("");
-const [content,setContent] = useState("");
-const [category,setCategory] = useState("");   
+  const [checkpublic, setCheckPublic] = useState(false);
 
-const[checkpublic,setCheckPublic] = useState(false);
+  const dispatch = useDispatch();
 
-const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-const noteCreate = useSelector((state) => state.noteCreate);
-const {loading,error,note} = noteCreate;
- 
-const resetHandler = () =>{
+  const noteCreate = useSelector((state) => state.noteCreate);
+  const { loading, error, note } = noteCreate;
+
+  const resetHandler = () => {
     setTitle("");
     setCategory("");
     setContent("");
-};
+  };
 
-//for checkbox
-const handleChange = (e) =>{
-  setCheckPublic(e.target.checked);
-}
+  //for checkbox
+  const handleChange = (e) => {
+    setCheckPublic(e.target.checked);
+  };
 
-
-const submitHandler = (e) =>{
+  const submitHandler = (e) => {
     e.preventDefault();
-    
-    if(!title || !content || !category) return;
 
-    dispatch(createNoteAction(title,content,category,checkpublic));
+    if (!title || !content || !category) return;
 
-    
+    dispatch(createNoteAction(title, content, category, checkpublic));
+
     resetHandler();
     history.push("/mynotes");
+  };
 
-};
 
-return (
+  useEffect(() => {
+    if(!userInfo){
+      history.push("/");
+    }
+  }, [])
+  
+  return (
     <>
-        <MainScreen title="Create a Note">
-          
-                        <div>
-                           
-                                <Container component="main" maxWidth="xs">
+      <MainScreen title="Create a Note">
+        <div>
+          <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 8,
+                marginTop: 2,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
             >
-            
               <Box
                 component="form"
                 onSubmit={submitHandler}
@@ -93,7 +101,11 @@ return (
                   autoFocus
                 />
 
-                <TextField
+                <ReactQuill
+                style={{
+                  width:"60rem",
+                  height:"30rem",
+                   }}
                   margin="normal"
                   required
                   fullWidth
@@ -101,14 +113,14 @@ return (
                   name="content"
                   label="Enter Content"
                   value={content}
-                  onChange={(e) => setContent(e.target.value)}
+                  onChange={(e) => setContent(e)}
                   type="text"
                   rows={4}
                   maxRows={10}
-                  
                 />
 
                 <TextField
+               sx={{marginTop:"4rem"}}
                   margin="normal"
                   required
                   fullWidth
@@ -117,34 +129,26 @@ return (
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   type="text"
-                
                 />
 
-                <Box>
+                <Box sx={{}}>
                   <Box>
-                    <FormControlLabel label="It is public" 
-                    control={
-                    <Checkbox checked={checkpublic}
-                      onChange={handleChange}
-
-                    />
-                    
-                    }>
-
-                    </FormControlLabel>
+                    <FormControlLabel
+                      label="It is public"
+                      control={
+                        <Checkbox
+                          checked={checkpublic}
+                          onChange={handleChange}
+                        />
+                      }
+                    ></FormControlLabel>
                   </Box>
                 </Box>
 
-                 <footer>
-                           Creating On - {new Date().toLocaleDateString()}
-                       </footer> 
-
-                
-                 
+                <footer>Creating On - {new Date().toLocaleDateString()}</footer>
 
                 {loading ? (
                   <CircularProgress justify="center" />
-                  
                 ) : (
                   <Button
                     type="submit"
@@ -152,24 +156,16 @@ return (
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                   >
-                   Create Note
+                    Create Note
                   </Button>
                 )}
-
-               
-
-                
               </Box>
             </Box>
           </Container>
-                            
-                        </div>
-
-
-                   
-        </MainScreen>
+        </div>
+      </MainScreen>
     </>
-  )
-}
+  );
+};
 
-export default CreateNote
+export default CreateNote;

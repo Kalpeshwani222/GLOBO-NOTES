@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import renderHTML from 'react-render-html';
 
 const MyNotes = ({ search }) => {
   const dispatch = useDispatch();
@@ -139,10 +140,11 @@ const MyNotes = ({ search }) => {
                               style={{
                                 margin: "6px",
                                 padding: "5px",
-                                fontSize: "16px",
+                                fontSize: "17px",
                               }}
                             >
-                              {note.content}
+                            {renderHTML(note.content)}
+                              
                             </p>
                           </div>
                           <div style={{}}>

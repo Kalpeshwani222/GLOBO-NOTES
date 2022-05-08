@@ -11,6 +11,9 @@ import {
   NOTE_DELETE_REQUEST,
   NOTE_DELETE_SUCCESS,
   NOTE_DELETE_FAIL,
+  PUBLIC_NOTE_REQUEST,
+  PUBLIC_NOTE_SUCCESS,
+  PUBLIC_NOTE_FAIL,
 } from "../constants/NotesConstants";
 
 
@@ -25,6 +28,26 @@ export const noteListReducer = (state = { notes: [] }, action) => {
       return { loading: false, notes: action.payload };
 
     case NOTE_LIST_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+
+
+//getting the all the public notes
+
+export const publicNoteReducer = (state = { notes: [] }, action) => {
+  switch (action.type) {
+    case PUBLIC_NOTE_REQUEST:
+      return { loading: true };
+
+    case PUBLIC_NOTE_SUCCESS:
+      return { loading: false, notes: action.payload };
+
+    case PUBLIC_NOTE_FAIL:
       return { loading: false, error: action.payload };
 
     default:

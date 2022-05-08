@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const {ObjectId} = mongoose.Schema.Types
 
 const noteSchema = mongoose.Schema(
     {
@@ -25,8 +25,9 @@ const noteSchema = mongoose.Schema(
             type:mongoose.Schema.Types.ObjectId,
             required:true,
             ref:"User",
+        
         },
-
+    
     },
     {
         timestamps:true,

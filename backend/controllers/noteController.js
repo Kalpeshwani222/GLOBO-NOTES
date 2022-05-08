@@ -1,6 +1,7 @@
 const Note = require("../models/noteModel");
 const asyncHandler = require("express-async-handler");
 const res = require("express/lib/response");
+const User = require('../models/userModel');
 
 //get the user specific notes
 const getNotes = asyncHandler(async (req, res) => {
@@ -9,17 +10,17 @@ const getNotes = asyncHandler(async (req, res) => {
 });
 
 //get the all public notes
-
 const getPublicNotes = asyncHandler(async (req, res) => {
-  const publicNotes = await Note.find({
-    public: true,
-  });
-  res.json(publicNotes);
+  const getnote = await Note.find({
+    public: true,})
+    .populate("user", "name pic ")
+
+    res.json(getnote);
 });
 
 const createNote = asyncHandler(async (req, res) => {
   const { title, content, category, checkpublic } = req.body;
-  console.log(checkpublic);
+
   if (!title || !content || !category) {
     res.status(400);
     throw new Error("Please fill all the Feilds");

@@ -2,12 +2,13 @@ import {createStore,combineReducers,applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from "redux-devtools-extension"
 import {userLoginReducers, userUpdateReducer,userRegisterReducer,userVerifyReducer} from "./reducers/userReducers";
-import {noteCreateReducer, noteDeleteReducer, noteListReducer, noteUpdateReducer} from "./reducers/NotesReducers"
+import {noteCreateReducer, noteDeleteReducer, noteListReducer, noteUpdateReducer,publicNoteReducer} from "./reducers/NotesReducers"
 
 const reducer = combineReducers({
     userLogin: userLoginReducers,
     userRegister:userRegisterReducer,
     noteList:noteListReducer,
+    publicNote: publicNoteReducer,
     noteCreate : noteCreateReducer,
     noteUpdate: noteUpdateReducer,
     noteDelete: noteDeleteReducer,

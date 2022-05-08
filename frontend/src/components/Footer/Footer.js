@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container,Row,Col } from 'react-bootstrap';
+
 
 const Footer = () => {
     return (
@@ -11,11 +11,15 @@ const Footer = () => {
             display:"flex",
             justifyContent:"center"
         }}>
-             <Container>
-                  <Row>
-                      <Col className="text-center py3">Copyright &copy: Note Application</Col>
-                  </Row>
-             </Container>
+             <div className='container'>
+                  <div className='row'>
+                      <div className=" col text-center py3">Develop By : KALPESH WANI</div>
+                  </div>
+             </div>
+
+            
+        
+      
         </footer>
     )
 }

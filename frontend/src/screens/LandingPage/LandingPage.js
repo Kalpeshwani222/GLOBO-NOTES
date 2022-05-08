@@ -8,91 +8,166 @@ import {
   CardContent,
   Typography,
   CardActions,
+  CardHeader,
+  Avatar,
+  Grid,
+  IconButton,
+  CircularProgress,
+  useMediaQuery,
 } from "@mui/material";
 import MainScreen from "../../components/MainScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { publicNotes } from "../../actions/notesActions";
+import moment from "moment";
+import renderHTML from "react-render-html";
+import ErrorMessage from "../../components/ErrorMessage";
+import { createTheme } from "@mui/system";
+import { ThemeProvider } from "@mui/private-theming";
 
 const LandingPage = ({ history }) => {
+  const theme = createTheme({
+    breakpoints: {
+      xs: 300,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  });
+
+  const dispatch = useDispatch();
+
+  const publicNote = useSelector((state) => state.publicNote);
+  const { loading, notes, error } = publicNote;
+  console.log(notes);
+
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
-
     if (userInfo) {
       history.push("/mynotes");
+    } else {
+      dispatch(publicNotes());
     }
   }, [history]);
 
   return (
-    <div className="main">
-      {/* <Container>
-                <Row>
-                   <div className="intro-text">
-                        <div>
-                            <h1 className="title">Welcome to Note App</h1>
-                            <p className="subtitle">One safe place for all your notes</p>
-                        </div>
-                        <div className="buttonContainer">
-                            <a href="/login">
-                                <Button size='lg' className="landingbutton">
-                                    Login
-                                </Button>
-                            </a>
-
-                             <a href="/register">
-                                <Button size='lg' className="landingbutton" variant="outline-primary">
-                                    Register
-                                </Button>
-                            </a>
-
-
-                        </div>
-                   </div>
-                </Row>
-            </Container> */}
-      <MainScreen title="Public Notes">
+    <>
+      <MainScreen title="Public Content">
         <div>
-          <Container>
-            <div className="mt-2">
-                <Card>
-              <CardContent>
-                <h2>HElo</h2>
+          {loading && <CircularProgress />}
+          {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
 
-                <hr />
+          <div className="container">
+            <div className="row">
+              <div className="col-12 col-md-12 col-lg-12">
+                {notes?.reverse().map((note) => {
+                  return (
+                    <>
+                      <div className="mt-4">
+                        <Card sx={{ maxWidth: 845 }} style={{ margin: "auto" }}>
+                          <div
+                            className="card-profile"
+                            style={{
+                              display: "flex",
+                              margin: "0.5rem",
+                              alignItems: "center",
+                            }}
+                          >
+                            <img
+                              src={note.user.pic}
+                              alt="user-profile"
+                              className="profile-image"
+                              style={{
+                                width: "60px",
+                                height: "60px",
+                                objectFit: "cover",
+                                borderRadius: "50%",
+                              }}
+                            />
 
-                <Typography
-                  padding={1}
-                  margin={1}
-                  style={{
-                    fontSize: "20px",
-                  }}
-                >
-                  ddes
-                </Typography>
-              </CardContent>
-            </Card>
+                            <div
+                              className="card-profile-info"
+                              style={{
+                                marginLeft: "1rem",
+                              }}
+                            >
+                              <h3
+                                style={{
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {note.user.name}
+                              </h3>
+
+                              <p
+                                style={{
+                                  color: "#616b74",
+                                  fontSize: "1rem",
+                                }}
+                              >
+                                {moment(note.createdAt).fromNow()}
+                              </p>
+                            </div>
+                          </div>
+
+                          <hr />
+                          <h5
+                              style={{
+                                margin: "1rem",
+                                padding:"1px",
+                              
+                              }}
+                            >
+                              {note.title}
+                            </h5>
+                          <CardContent
+                            style={{
+                              overflowY: "scroll",
+                              overflowX: "scroll",
+                            }}
+                          >
+                            
+
+                            <div
+                              style={{
+                                width: "800px",
+                                height: "250px",
+                                whiteSpace: "nowrap",
+                                //  overflowY: "scroll",
+                                // overflowX:"scroll",
+                              }}
+                            >
+                              <Typography
+                          padding={1}
+                          margin={1}
+                          style={{
+                            fontSize: "17px",
+                           }}
+                        >
+                          {renderHTML(note.content)}
+                        </Typography>
+
+                              {/* <p
+                                style={{
+                                  margin: "0.3rem",
+                                  fontSize: "17px",
+                                }}
+                              >
+                                {renderHTML(note.content)}
+                              </p> */}
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </>
+                  );
+                })}
+              </div>
             </div>
-          
-          <div className="mt-2">
-                <Card>
-              <CardContent>
-                <h2>HElo</h2>
-
-                <hr />
-
-                <Typography
-                  padding={1}
-                  margin={1}
-                  style={{
-                    fontSize: "20px",
-                  }}
-                >
-                  ddes
-                </Typography>
-              </CardContent>
-            </Card>
-            </div>
-          </Container>
+          </div>
         </div>
       </MainScreen>
-    </div>
+    </>
   );
 };
 

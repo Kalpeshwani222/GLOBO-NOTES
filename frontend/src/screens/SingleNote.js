@@ -21,6 +21,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+import renderHTML from 'react-render-html';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 
 function SingleNote() {
   const history = useHistory();
@@ -30,6 +34,7 @@ function SingleNote() {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
+
   const [date, setDate] = useState();
 
   const [checkpublic, setCheckPublic] = useState(false);
@@ -41,6 +46,7 @@ function SingleNote() {
   useEffect(() => {
     const fetching = async () => {
       const { data } = await axios.get(`/api/notes/${id}`);
+      
       setTitle(data.title);
       setContent(data.content);
       setCategory(data.category);
@@ -65,7 +71,7 @@ function SingleNote() {
   };
   return (
     <>
-      <MainScreen title="Edit Note">
+      {/* <MainScreen title="Edit Note">
         <div>
           {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
           {loading && <Loading size={50} />}
@@ -154,6 +160,99 @@ function SingleNote() {
             </Box>
           </Container>
         </div>
+      </MainScreen> */}
+      <MainScreen title="Edit Note">
+      <div>
+         <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                component="form"
+                onSubmit={updateHandler}
+                noValidate
+                sx={{ mt: 1 }}
+              >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="text"
+                  label="Enter Title"
+                  name="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  autoFocus
+                />
+
+                <ReactQuill
+                style={{
+                  width:"60rem",
+                  height:"30rem"
+                }}
+                  margin="normal"
+                  required
+                  fullWidth
+                  multiline
+                  name="content"
+                  label="Enter Content"
+                  value={content || ''}
+                  onChange={(e) => setContent(e)}
+                  type="text"
+                  rows={4}
+                  maxRows={10}
+                />
+
+                <TextField
+               sx={{marginTop:"4rem"}}
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="text"
+                  label="Enter Category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  type="text"
+                />
+
+                <Box sx={{}}>
+                  <Box>
+                    <FormControlLabel
+                      label="It is public"
+                      control={
+                        <Checkbox
+                          checked={checkpublic}
+                          onChange={handleChange}
+                        />
+                      }
+                    ></FormControlLabel>
+                  </Box>
+                </Box>
+
+                <footer>Updating On - {new Date().toLocaleDateString()}</footer>
+
+                {loading ? (
+                  <CircularProgress justify="center" />
+                ) : (
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                   Update Note
+                  </Button>
+                )}
+              </Box>
+            </Box>
+          </Container>
+      </div>
       </MainScreen>
     </>
   );
