@@ -23,6 +23,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+
+
 const CreateNote = () => {
   const history = useHistory();
 
@@ -71,8 +73,15 @@ const CreateNote = () => {
   
   return (
     <>
+
+    <div>
+        {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
+        {loading && <CircularProgress />}
+    </div>
       <MainScreen title="Create a Note">
-        <div>
+        <div className="">
+
+        
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
@@ -88,6 +97,7 @@ const CreateNote = () => {
                 onSubmit={submitHandler}
                 noValidate
                 sx={{ mt: 1 }}
+                className="create-note"
               >
                 <TextField
                   margin="normal"
@@ -115,8 +125,7 @@ const CreateNote = () => {
                   value={content}
                   onChange={(e) => setContent(e)}
                   type="text"
-                  rows={4}
-                  maxRows={10}
+                  className="text-editor"                  
                 />
 
                 <TextField
@@ -162,6 +171,7 @@ const CreateNote = () => {
               </Box>
             </Box>
           </Container>
+          
         </div>
       </MainScreen>
     </>

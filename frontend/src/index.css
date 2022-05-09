@@ -19,3 +19,18 @@ code {
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
+
+/* .create-note */
+@media (max-width: 640px) {
+  .create-note {
+    width: 15rem;
+    height: 10rem;
+  }
+}
+
+/* .text-editor */
+@media (max-width: 640px) {
+  .ReactQuill {
+    width: 10rem;
+  }
+}

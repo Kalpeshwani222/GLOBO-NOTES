@@ -83,7 +83,7 @@ const MyNotes = ({ search }) => {
                 margin: 0,
                 top: "auto",
                 right: 20,
-                bottom: 20,
+                bottom: 60,
                 left: "auto",
                 position: "fixed",
 
@@ -153,12 +153,12 @@ const MyNotes = ({ search }) => {
                                 margin: "1rem",
                               }}
                             >
-                              <footer className="blockquote-footer">
+                              <div className="blockquote-footer">
                                 Created On - 
                                 <cite title="Source Title">
                                   {note.createdAt.substring(0, 10)}
                                 </cite>
-                              </footer>
+                              </div>
                             </p>
                           </div>
                           <hr />

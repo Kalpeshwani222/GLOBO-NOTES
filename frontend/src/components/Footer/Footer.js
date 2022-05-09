@@ -1,26 +1,49 @@
 import React from 'react'
-
+import "../Footer/footer.css"
 
 const Footer = () => {
     return (
-        <footer
-        style = {{
-            width:"100%",
-            position:"relative",
-            bottom:0,
-            display:"flex",
-            justifyContent:"center"
-        }}>
-             <div className='container'>
-                  <div className='row'>
-                      <div className=" col text-center py3">Develop By : KALPESH WANI</div>
-                  </div>
-             </div>
-
-            
+       
+         <footer>
+        Created by <span id="kalpesh"> - Kalpesh Wani .</span>
+        <br />
+        <span>
+            <i
+                className="fab fa-github"
+                onClick={() =>
+                    window.open("https://github.com/Kalpeshwani222", "_blank")
+                }
+            ></i>
         
-      
-        </footer>
+            <i
+                className="fab fa-linkedin"
+                onClick={() =>
+                    window.open(
+                        "https://www.linkedin.com/in/wanikalpesh/",
+                        "_blank"
+                    )
+                }
+            ></i>
+            <i
+                className="fab fa-youtube"
+                onClick={() =>
+                    window.open(
+                        "https://www.youtube.com/channel/UCNhcwdT-CRazfiAW7iVVDTw",
+                        "_blank"
+                    )
+                }
+            ></i>
+            <i
+                className="fas fa-envelope"
+                onClick={() =>
+                    window.open("mailto:wanikalpeshanil@gmail.com", "_blank")
+                }
+            ></i>
+
+           
+            
+        </span>
+    </footer>
     )
 }
 
