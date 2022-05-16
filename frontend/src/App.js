@@ -10,20 +10,19 @@ import CreateNote from "./screens/CreateNote/CreateNote";
 import SingleNote from "./screens/SingleNote";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import VerifyEmail from "./screens/VerifyEmail/VerifyEmail";
-import { useState } from "react";
+
 
 const App = () => {
-  const [search, setSearch] = useState("");
-
+ 
   return (
     <BrowserRouter>
-      <Header setSearch={setSearch} />
+      <Header/>
 
       <main>
         <Route path="/" component={LandingPage} exact />
         <Route path="/login" component={LoginScreen} exact />
         <Route path="/register" component={RegisterScreen} exact />
-        <Route path="/mynotes" component={() => <MyNotes search={search} />} />
+        <Route path="/mynotes" component={() => <MyNotes />} />
         <Route path="/createnote" component={() => <CreateNote />} />
         <Route path="/note/:id" component={() => <SingleNote />} />
 

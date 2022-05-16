@@ -24,7 +24,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import renderHTML from 'react-render-html';
 
-const MyNotes = ({ search }) => {
+const MyNotes = () => {
   const dispatch = useDispatch();
   const noteList = useSelector((state) => state.noteList);
   const { loading, notes, error } = noteList;
@@ -105,13 +105,7 @@ const MyNotes = ({ search }) => {
             <Grid container spacing={2}>
               <>
                 {notes
-                  ?.reverse()
-                  .filter((filteredNote) =>
-                    filteredNote.title
-                      .toLowerCase()
-                      .includes(search.toLowerCase())
-                  )
-                  .map((note) => (
+                  ?.reverse().map((note) => (
                     <Grid item sm={6} xs={12} lg={4}>
                       <Box textAlign="center">
                         <Card sx={{ maxWidth: 345 }}>

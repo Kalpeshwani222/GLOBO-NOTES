@@ -88,6 +88,26 @@ const DeleteNote = asyncHandler(async (req, res) => {
     throw new Error("Note not Found");
   }
 });
+
+
+//seacrch
+
+const searchNote = asyncHandler(async (req, res) => {
+
+  const result = await Note.find({
+    public: true,
+    "$or":[
+      {
+        title : {$regex : req.params.key}
+      },
+      {
+        content:{$regex : req.params.key}
+      },
+    ]
+  }).populate("user", "name pic ")
+  res.json(result);
+});
+
 module.exports = {
   getNotes,
   createNote,
@@ -95,4 +115,5 @@ module.exports = {
   UpdateNote,
   DeleteNote,
   getPublicNotes,
+  searchNote,
 };

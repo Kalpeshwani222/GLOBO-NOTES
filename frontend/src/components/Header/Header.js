@@ -1,10 +1,10 @@
 import { Nav, NavDropdown } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
 
-const Header = ({ setSearch }) => {
+const Header = () => {
   const [show, setShow] = useState(false);
 
   const history = useHistory();

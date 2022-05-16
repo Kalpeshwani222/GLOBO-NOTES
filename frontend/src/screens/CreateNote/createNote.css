@@ -1,0 +1,31 @@
+.create-note {
+  margin-top: 3.5rem;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 23rem;
+}
+
+.create-note .container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.text-editor {
+  width: 50rem;
+  height: 25rem;
+}
+
+@media screen and (max-width: 600px) {
+  .create-note {
+    width: 100%;
+  }
+  .text-editor {
+    width: 20rem;
+    margin: 2px;
+    height: 20rem;
+  }
+  .category-inp {
+    margin-top: 1.4rem;
+  }
+}

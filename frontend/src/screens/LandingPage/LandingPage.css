@@ -1,73 +1,52 @@
-/* .main {
-  min-height: 93vh;
-  display: flex;
+/* general view */
+
+.landing-page {
+  margin-top: 5rem;
+  margin-bottom: 4rem;
+}
+.landing-page .serarch-text {
+  margin: 0.5rem;
+  background-color: tan;
+  color: black;
+}
+.landing-page .container .search-box {
+  width: 400px;
+  height: 45px;
+  margin: 5px;
+  padding: 21px;
+}
+
+.landing-page .loading-style {
+  justify-content: center;
   align-items: center;
-  background-image: url("../../background.jpg");
-  background-position: center;
-  background-size: cover;
-}
-.title {
-  font-size: 95px;
-}
-
-.subtitle {
-  font-size: 25px;
-  padding-top: 10px;
-}
-
-.intro-text {
-  width: 100%;
-  text-align: center;
-}
-
-.buttonContainer {
-  margin-top: 50px;
   display: flex;
-  justify-content: space-evenly;
 }
-
-.landingbutton {
-  width: 200px;
-  height: 55px;
-}
-
-@media only screen and (min-width: 1200px) {
-  .buttonContainer {
-    padding: 0 200px;
+/* tab view */
+@media screen and (max-width: 992px) {
+  .landing-page .serarch-text {
+    background-color: blue;
+    color: white;
   }
-  .title {
-    padding: 0 100px;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .title {
-    font-size: 60px;
-  }
-  .landingbutton {
-    width: 150px;
-    height: 50px;
+  .landing-page .container .search-box {
+    width: "400px";
+    margin: "20px";
+    height: "38px";
+    border: "solid 1px black";
   }
 }
 
-@media only screen and (min-width: 768px) {
-  .title {
-    font-size: 60px;
+/* mobile view */
+@media screen and (max-width: 600px) {
+  .landing-page .serarch-text {
+    background-color: olive;
+    color: white;
+    margin: 5px;
+    width: 95%;
+    padding: 0.5rem;
   }
-  .landingbutton {
-    width: 150px;
-    height: 50px;
+  .landing-page .container .search-box {
+    width: 240px;
+    height: 44px;
+    margin: -2px;
   }
 }
-
-/* @media only screen and (min-width: 360px) {
-  .main {
-    min-height: 93vh;
-    min-width: 100%;
-    display: flex;
-    align-items: center;
-    background-image: url("../../background.jpg");
-    background-position: center;
-    background-size: cover;
-  }
-} */
