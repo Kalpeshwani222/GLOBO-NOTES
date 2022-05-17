@@ -72,96 +72,6 @@ function SingleNote() {
   return (
     <>
       {/* <MainScreen title="Edit Note">
-        <div>
-          {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-          {loading && <Loading size={50} />}
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Box
-                component="form"
-                onSubmit={updateHandler}
-                noValidate
-                sx={{ mt: 1 }}
-              >
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="text"
-                  label="Enter Title"
-                  name="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  autoFocus
-                />
-
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  multiline
-                  name="content"
-                  label="Enter Content"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  type="text"
-                  rows={4}
-                  maxRows={10}
-                />
-
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="text"
-                  label="Enter Category"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  type="text"
-                />
-
-                <Box>
-                  <Box>
-                    <FormControlLabel
-                      label="It is public"
-                      control={
-                        <Checkbox
-                          checked={checkpublic}
-                          onChange={handleChange}
-                        />
-                      }
-                    ></FormControlLabel>
-                  </Box>
-                </Box>
-
-                <footer>Updating On - {new Date().toLocaleDateString()}</footer>
-
-                {loading ? (
-                  <CircularProgress justify="center" />
-                ) : (
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Update Note
-                  </Button>
-                )}
-              </Box>
-            </Box>
-          </Container>
-        </div>
-      </MainScreen> */}
-      <MainScreen title="Edit Note">
       <div>
          <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -253,7 +163,100 @@ function SingleNote() {
             </Box>
           </Container>
       </div>
-      </MainScreen>
+      </MainScreen> */}
+
+
+         <section className="create-note">
+        <div className="container">
+          <div className="row">
+            <div className="col-10 col-lg-10 col-md-10 ">
+              <div className="text-editor">
+                <Box
+                  component="form"
+                  onSubmit={updateHandler}
+                  noValidate
+                  sx={{ mt: 2 }}
+                  className="create-note"
+                >
+
+                   <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="text"
+                  label="Enter Title"
+                  name="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  autoFocus
+                />
+
+                  <ReactQuill
+                    margin="normal"
+                    required
+                    fullWidth
+                    multiline
+                    name="content"
+                    label="Enter Content"
+                    value={content || ''}
+                    onChange={(e) => setContent(e)}
+                    type="text"
+                    className="text-editor"
+                  />
+
+                  <div className="category-inp">
+                     <TextField
+                sx={{ mt: 7 }}
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="text"
+                  
+                  label="Enter Category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  type="text"
+                />
+                  </div>
+
+                  <Box>
+                    <FormControlLabel
+                      label="It is public"
+                      control={
+                        <Checkbox
+                          checked={checkpublic}
+                          onChange={handleChange}
+                        />
+                      }
+                    ></FormControlLabel>
+                  </Box>
+              
+
+                <footer>Creating On - {new Date().toLocaleDateString()}</footer>
+
+                {loading ? (
+                  <CircularProgress justify="center" />
+                ) : (
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 2, mb: 4 }}
+                  >
+                    update Note
+                  </Button>
+                )}
+
+                
+
+                </Box>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
     </>
   );
 }

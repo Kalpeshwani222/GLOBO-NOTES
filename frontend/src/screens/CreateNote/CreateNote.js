@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MainScreen from "../../components/MainScreen";
 import ErrorMessage from "../../components/ErrorMessage";
-import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { createNoteAction } from "../../actions/notesActions";
 import { history, useHistory } from "react-router-dom";
@@ -18,8 +17,10 @@ import {
   FormControlLabel,
   FormControl,
   CircularProgress,
+  InputLabel,
+  MenuItem
 } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./createNote.css";
@@ -30,6 +31,7 @@ const CreateNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
+  const [age, setAge] = React.useState('');
 
   const [checkpublic, setCheckPublic] = useState(false);
 
@@ -50,6 +52,11 @@ const CreateNote = () => {
   //for checkbox
   const handleChange = (e) => {
     setCheckPublic(e.target.checked);
+  };
+
+  // for select
+  const handleSelect = (event) => {
+    setCategory(event.target.value);
   };
 
   const submitHandler = (e) => {
@@ -187,18 +194,17 @@ const CreateNote = () => {
                   sx={{ mt: 2 }}
                   className="create-note"
                 >
-
-                   <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="text"
-                  label="Enter Title"
-                  name="title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  autoFocus
-                />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="text"
+                    label="Enter Title"
+                    name="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    autoFocus
+                  />
 
                   <ReactQuill
                     margin="normal"
@@ -214,18 +220,34 @@ const CreateNote = () => {
                   />
 
                   <div className="category-inp">
-                     <TextField
-                sx={{ mt: 7 }}
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="text"
-                  
-                  label="Enter Category"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  type="text"
-                />
+                    {/* <TextField
+                      sx={{ mt: 7 }}
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="text"
+                      label="Enter Category"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      type="text"
+                    /> */}
+
+
+      <FormControl fullWidth sx={{mt:7}}>
+        <InputLabel id="demo-simple-select-label">Category</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={category}
+          label="Age"
+          onChange={handleSelect}
+        >
+          <MenuItem value={'Programming'}>Programming</MenuItem>
+          <MenuItem value={'Personal'}>Personal</MenuItem>
+          <MenuItem value={'knowledge'}>knowledge</MenuItem>
+        </Select>
+      </FormControl>
+    
                   </div>
 
                   <Box>
@@ -239,25 +261,23 @@ const CreateNote = () => {
                       }
                     ></FormControlLabel>
                   </Box>
-              
 
-                <footer>Creating On - {new Date().toLocaleDateString()}</footer>
+                  <footer>
+                    Creating On - {new Date().toLocaleDateString()}
+                  </footer>
 
-                {loading ? (
-                  <CircularProgress justify="center" />
-                ) : (
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 2, mb: 4 }}
-                  >
-                    Create Note
-                  </Button>
-                )}
-
-                
-
+                  {loading ? (
+                    <CircularProgress justify="center" />
+                  ) : (
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 2, mb: 4 }}
+                    >
+                      Create Note
+                    </Button>
+                  )}
                 </Box>
               </div>
             </div>
