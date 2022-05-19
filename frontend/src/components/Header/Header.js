@@ -1,11 +1,25 @@
 import { Nav, NavDropdown } from "react-bootstrap";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
+import { AppBar, Tab, Tabs, useMediaQuery, useTheme,Avatar, MenuItem, Menu } from "@mui/material";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import DrawerComp from "./DrawerComp";
 
 const Header = () => {
   const [show, setShow] = useState(false);
+  const [value, setValue] = useState();
+  
+
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  console.log(isMatch);
 
   const history = useHistory();
 
@@ -19,11 +33,12 @@ const Header = () => {
     history.push("/");
   };
 
-  
 
+
+  
   return (
     <>
-      <nav
+      {/* <nav
         className="navbar fixed-top navbar-expand-lg navbar-light"
         style={{ height: "4.5rem", background: "#ffc107" }}
       >
@@ -134,7 +149,145 @@ const Header = () => {
             
           </div>
         </div>
-      </nav>
+      </nav> */}
+
+      <AppBar
+        sx={
+          {
+            // background: "#ffc107",
+          }
+        }
+      >
+        <Toolbar>
+          <Typography sx={{ fontSize: "1.3rem" }} >NoteApp</Typography>
+         
+          {isMatch ? (
+            <>
+              <DrawerComp />
+            </>
+          ) : (
+            <>
+
+            {userInfo ? (
+              <>
+                    <Tabs
+                textColor="inherit"
+                value={value}
+                onChange={(e, value) => setValue(value)}
+                indicatorColor="secondary"
+              >
+                <Tab label="Home" to="/" component={Link} />
+                <Tab label="Create Note"  to="/createnote" component={Link} />
+                <Tab label="My Notes" to="/mynotes" component={Link} />
+                 
+              </Tabs>
+              </>
+            ) : (
+              <>
+
+                <Tab label="Home" to="/" component={Link} />
+                
+ <Button
+              disableElevation
+              disableRipple
+               sx={{ marginLeft: "auto",
+                
+                }}
+                component={Link}
+                to="/register"
+                variant="contained"
+                color="primary"
+                style={{
+                  background:'transparent'
+                }}
+              >Register
+                
+              </Button>
+
+              <Button
+               sx={{ marginLeft: "10px" }}
+                component={Link}
+               to="/login"
+                variant="contained"
+                color="primary"
+              >Login
+                
+              </Button>
+              </>
+            )
+            
+            
+            }
+
+           {!userInfo ? ""
+                :<>
+                  
+
+                 <Box sx={{ flexGrow: 0 ,marginLeft:'auto'}}>
+          
+              
+
+                  <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                onClick={() => setShow(!show)}
+              >
+                <img src={userInfo.pic} alt={userInfo.name}
+
+                  style={{
+                    width:"2.5rem",
+                    height:"2.5rem",
+                   
+                          borderRadius:"50%",
+                          display:"flex",
+                           margin:"auto",
+                          padding:"3px"
+                  }}
+                />
+                {/* <Avatar/> */}
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={show}
+                onClose={() => setShow(false)}
+                onClick={() => setShow(false)}
+              >
+                <MenuItem  component={Link}
+               to="/profile" >Profile</MenuItem>
+                <MenuItem onClick={logoutHandler}>LogOut</MenuItem>
+              </Menu>
+            </div>
+              </Box>
+             
+            
+                </>
+                }
+
+
+  
+  
+             
+
+             
+
+               
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
     </>
   );
 };

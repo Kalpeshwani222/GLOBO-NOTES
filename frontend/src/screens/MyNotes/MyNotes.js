@@ -1,23 +1,18 @@
 import React, { useEffect } from "react";
-import { Link, useHistory, NavLink } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import MainScreen from "../../components/MainScreen";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteNoteAction, listNotes } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import {
-  Button,
-  CardActionArea,
+  
   CardActions,
-  IconButton,
   CircularProgress,
   Container,
   Grid,
   Box,
   Card,
-  CardMedia,
-  CardContent,
-  Typography,
   Fab,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -97,9 +92,18 @@ const MyNotes = () => {
           {errorDelete && (
             <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
           )}
-          {loadingDelete && <Loading />}
+          {/* {loadingDelete && <Loading />} */}
           {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-          {loading && <Loading />}
+          {/* {loading && <Loading />} */}
+           <div className="loading-style">
+            {loading && (
+              <>
+                <Box mt={10} pl={10} mr={10}>
+                  <CircularProgress />
+                </Box>
+              </>
+            )}
+          </div>
 
           <Container>
             <Grid container spacing={2}>

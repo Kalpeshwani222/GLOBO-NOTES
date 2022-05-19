@@ -60,19 +60,8 @@ export const publicNotes = () => async (dispatch, getState) => {
     dispatch({
       type: PUBLIC_NOTE_REQUEST,
     });
-
-    // const {
-    //   userLogin: { userInfo },
-    // } = getState();
-
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // };
-
+    
     const { data } = await axios.get("/api/notes/public");
-
     dispatch({
       type: PUBLIC_NOTE_SUCCESS,
       payload: data,

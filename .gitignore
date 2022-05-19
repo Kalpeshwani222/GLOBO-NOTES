@@ -3,4 +3,3 @@ node_modules
 /backend/.env
 /frontend/build
 .env
-ProcFile

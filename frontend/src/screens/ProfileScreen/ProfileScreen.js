@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, TextField } from "@mui/material";
+import { Button, Card, TextField,CircularProgress,Box } from "@mui/material";
 import MainScreen from "../../components/MainScreen";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -15,7 +15,7 @@ const ProfileScreen = () => {
   const [uploading, setUploading] = useState(false);
 
   const [password, setPasssword] = useState("");
-  const [confirmPasssword, setConfirmPasssword] = useState("");
+
   const [picMessage, setPicMessage] = useState();
 
   const dispatch = useDispatch();
@@ -78,12 +78,26 @@ const ProfileScreen = () => {
     dispatch(updateProfile({ name, email, password, pic }));
   };
 
+  const uploadFile = () =>{
+    document.getElementById('select-file').click();
+  }
+
   return (
     <>
-      <MainScreen title="Update Profile">
+      <MainScreen title="Update Profile" style={{
+        marginBottom: "23rem"
+      }}>
         {/* messages */}
         <div>
-          {loading && <Loading />}
+         <div className="loading-style">
+            {loading && (
+              <>
+                <Box mt={10} pl={10} mr={10}>
+                  <CircularProgress />
+                </Box>
+              </>
+            )}
+          </div>
           {success && (
             <ErrorMessage variant="success">Updated successfully</ErrorMessage>
           )}
@@ -103,7 +117,7 @@ const ProfileScreen = () => {
 
                 <div>
                   {uploading ? (
-                    <Loading />
+                    <CircularProgress justifyContent="center" alignItems="center" />
                   ) : (
                     <>
                       <img
@@ -127,23 +141,32 @@ const ProfileScreen = () => {
                           padding:"1rem",
                          justifyContent:"center"
                       }}>
+
                     <input
                       type="file"
                       onChange={(e) => postDetails(e.target.files[0])}
-                      typeof="image/png"
                       style={{
                         display: "none",
                       }}
-                      id="contained-button-file"
+                      // id="contained-button-file"
+                      id="select-file"
                     />
-                    <label htmlFor="contained-button-file">
+
+                    {/* <label htmlFor="contained-button-file">
                       <Button
                         variant="contained"
                         color="primary"  
                       >
                         Upload
                       </Button>
-                    </label>
+                    </label> */}
+                    <Button
+                        variant="contained"
+                        color="primary" 
+                        onClick={uploadFile} 
+                      >
+                        Upload
+                      </Button>
                   </div>
                 </div>
 
@@ -169,11 +192,15 @@ const ProfileScreen = () => {
                       margin="normal"
                       required
                       fullWidth
+          
                       id="email"
                       name="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       autoFocus
+                      InputProps={{
+                          readOnly: true,
+                        }}
                     />
 
                     <Button

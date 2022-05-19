@@ -17,7 +17,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 
 const LandingPage = ({ history }) => {
   const [search, setSearch] = useState("");
-
+  const[category,setCategory] = useState("")
   const dispatch = useDispatch();
 
   const publicNote = useSelector((state) => state.publicNote);
@@ -43,6 +43,7 @@ const LandingPage = ({ history }) => {
               placeholder="Search Notes"
               onChange={(e) => setSearch(e.target.value)}
             />
+
           </div>
 
           {/* errors */}
@@ -71,7 +72,7 @@ const LandingPage = ({ history }) => {
                     .toLowerCase()
                     .includes(search.toLowerCase())
                 )
-                .map((note) => {
+                  .map((note) => {
                   return (
                     <>
                       <div className="mt-2" key={note._id}>

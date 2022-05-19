@@ -31,8 +31,6 @@ const CreateNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
-  const [age, setAge] = React.useState('');
-
   const [checkpublic, setCheckPublic] = useState(false);
 
   const dispatch = useDispatch();

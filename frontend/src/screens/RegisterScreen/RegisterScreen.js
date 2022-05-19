@@ -1,22 +1,17 @@
 import React,{useState,useEffect} from "react";
-import MainScreen from "../../components/MainScreen";
 import { Link, useHistory } from "react-router-dom";
 import {useDispatch,useSelector} from 'react-redux';
 import ErrorMessage from "../../components/ErrorMessage";
-import Loading from "../../components/Loading";
 import { register } from "../../actions/userActions";
 
 import {
   Container,
   Typography,
   TextField,
-  Checkbox,
   Grid,
   Button,
   Box,
   Avatar,
-  FormControlLabel,
-  FormControl,
   CircularProgress
 
 } from "@mui/material";

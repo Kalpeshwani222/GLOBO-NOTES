@@ -6,7 +6,10 @@
 }
 .landing-page .serarch-text {
   margin: 0.5rem;
-  background-color: tan;
+  /* background-color: tan; */
+  justify-content: center;
+  align-items: center;
+  display: flex;
   color: black;
 }
 .landing-page .container .search-box {
@@ -24,7 +27,6 @@
 /* tab view */
 @media screen and (max-width: 992px) {
   .landing-page .serarch-text {
-    background-color: blue;
     color: white;
   }
   .landing-page .container .search-box {
@@ -38,7 +40,7 @@
 /* mobile view */
 @media screen and (max-width: 600px) {
   .landing-page .serarch-text {
-    background-color: olive;
+    /* background-color: olive; */
     color: white;
     margin: 5px;
     width: 95%;
