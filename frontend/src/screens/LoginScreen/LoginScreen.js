@@ -118,7 +118,7 @@ const LoginScreen = ({ history }) => {
 
                   <Grid container>
                     <Grid item xs>
-                      <Link variant="body2" to="/reset-password">
+                      <Link variant="body2" to="/forgot">
                         Forgot password?
                       </Link>
                     </Grid>

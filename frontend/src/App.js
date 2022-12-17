@@ -10,6 +10,7 @@ import CreateNote from "./screens/CreateNote/CreateNote";
 import SingleNote from "./screens/SingleNote";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import VerifyEmail from "./screens/VerifyEmail/VerifyEmail";
+import ForgotPass from "./screens/forgot-pass/ForgotPass";
 
 
 const App = () => {
@@ -28,6 +29,11 @@ const App = () => {
 
         <Route path="/profile" component={() => <ProfileScreen />} />
         <Route path="/verify" component={() => <VerifyEmail />} />
+
+        <Route path="/forgot" component={() => <ForgotPass/>} />
+
+
+
       </main>
       <Footer />
     </BrowserRouter>
