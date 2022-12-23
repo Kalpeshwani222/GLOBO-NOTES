@@ -1,6 +1,7 @@
 const express = require("express");
 const notes = require("./data/notes");
 const dotenv = require("dotenv");
+const cors = require('cors')
 const connectDb = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const noteRoutes = require("./routes/noteRoutes");
@@ -8,7 +9,7 @@ const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const path = require("path");
 
 const app = express();
-
+app.use(cors())
 dotenv.config();
 connectDb();
 app.use(express.json());
