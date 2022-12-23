@@ -61,7 +61,7 @@ export const publicNotes = () => async (dispatch, getState) => {
       type: PUBLIC_NOTE_REQUEST,
     });
     
-    const { data } = await axios.get("/api/notes/public");
+    const { data } = await axios.get("http://localhost:5000/api/notes/public");
     dispatch({
       type: PUBLIC_NOTE_SUCCESS,
       payload: data,
