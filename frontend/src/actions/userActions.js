@@ -16,7 +16,7 @@ export const login = (email,password) => async(dispatch) =>{
 
 
             
-                const {data} = await axios.post('/api/users/login',{
+                const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/login`,{
                     email,password
                 },config);
 
@@ -53,7 +53,7 @@ export const login = (email,password) => async(dispatch) =>{
                 },
             };
 
-              const {data} = await axios.post("/api/users",{
+              const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users`,{
                 name,email,password,pic
             },config);
             
@@ -88,7 +88,7 @@ export const verfication = ( userId,otp) => async(dispatch) =>{
                 },
             };
 
-              const {data} = await axios.post( "/api/users/verify-email",{
+              const {data} = await axios.post( `${process.env.REACT_APP_SERVER_URL}/api/users/verify-email`,{
                 userId,otp
             },config);
             
@@ -130,7 +130,7 @@ export const verfication = ( userId,otp) => async(dispatch) =>{
                 },
             };
 
-              const {data} = await axios.post("/api/users/profile",user,config);
+              const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/users/profile`,user,config);
 
             dispatch({type:USER_UPDATE_SUCCESS,payload:data});
 

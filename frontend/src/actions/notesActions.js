@@ -33,7 +33,7 @@ export const listNotes = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/notes", config);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notes`, config);
 
     dispatch({
       type: NOTE_LIST_SUCCESS,
@@ -61,7 +61,7 @@ export const publicNotes = () => async (dispatch, getState) => {
       type: PUBLIC_NOTE_REQUEST,
     });
     
-    const { data } = await axios.get("http://localhost:5000/api/notes/public");
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notes/public`);
     dispatch({
       type: PUBLIC_NOTE_SUCCESS,
       payload: data,
@@ -102,7 +102,7 @@ export const createNoteAction =
       };
 
       const { data } = await axios.post(
-        `/api/notes/create`,
+        `${process.env.REACT_APP_SERVER_URL}/api/notes/create`,
         { title, content, category, checkpublic },
         config
       );
@@ -145,7 +145,7 @@ export const updateNoteAction =
       };
 
       const { data } = await axios.put(
-        `/api/notes/${id}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/notes/${id}`,
         { title, content, category, checkpublic },
         config
       );
@@ -185,7 +185,7 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(`/api/notes/${id}`, config);
+    const { data } = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/notes/${id}`, config);
 
     dispatch({
       type: NOTE_DELETE_SUCCESS,
