@@ -5,8 +5,9 @@
 • Provided edit, delete, and visibility update functionalities for both Public and Private notes to allow for easy
 management and organization.
 
-## Live Link - 
-https://globonote.netlify.com
+<!-- ## Live Link - 
+ -->
+### Live Link - https://globonote.netlify.com
 
 ## Tech Stack - 
 
